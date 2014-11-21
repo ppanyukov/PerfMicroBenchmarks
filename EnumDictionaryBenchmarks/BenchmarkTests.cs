@@ -6,6 +6,8 @@
 
     using NUnit.Framework;
 
+    using PerfBenchmarksUtil;
+
     [TestFixture]
     public sealed class BenchmarkTests
     {
@@ -70,7 +72,7 @@
         /// <summary>
         /// The actual tests.
         /// </summary>
-        public void GetValueTests(int iterations, string label="")
+        private void GetValueTests(int iterations, string label="")
         {
             Console.WriteLine("Iterations: {0:N} {1}", iterations, label);
 
@@ -110,11 +112,9 @@
         /// <summary>
         /// Calculate ops per second as a formatted string.
         /// </summary>
-        private static string OpsPerSecond(int iterations, Stopwatch sw)
+        public static string OpsPerSecond(int iterations, Stopwatch sw)
         {
-            // Nanosecond precision
-            var opsPerSecondNano = ((long)iterations * (long)1000L * (long)1000L * (long)1000L) / sw.ElapsedTicks;
-            return string.Format("({0:N0} ops/sec, nanosecond precision)", opsPerSecondNano);
+            return string.Format("({0:N0}) ops/sec", sw.OpsPerSecond(iterations));
         }
 
         private Stopwatch LoopGetValueArray(int iterations)

@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2CDFAAD3-1BDE-4F3D-978A-0F9B23A78271}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EnumDictionaryBenchmarks</RootNamespace>
     <AssemblyName>EnumDictionaryBenchmarks</AssemblyName>
@@ -65,6 +65,9 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
@@ -79,11 +82,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BenchmarkTests.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="results.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PerfBenchmarksUtil\PerfBenchmarksUtil.csproj">
+      <Project>{0080b395-fc51-4c0d-9dc4-9a0d1b0b1bf5}</Project>
+      <Name>PerfBenchmarksUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
