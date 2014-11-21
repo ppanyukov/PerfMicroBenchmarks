@@ -214,49 +214,7 @@
 
         private void PrintRunConfig()
         {
-            const string configuration = 
-            #if DEBUG 
-                    "Debug";
-            #else
-                    "Release";
-            #endif
-
-
-            const string platform = 
-            #if PlatformAnyCPU
-                    "AnyCPU";
-            #else
-            #if Platform86
-                    "x86";
-            #else
-            #if Platform64
-                    "x64";
-            #endif
-            #endif
-            #endif
-
-            Console.WriteLine("========= Running on ===========");
-            var vars = new []
-            {
-                "PROCESSOR_ARCHITECTURE",
-                "PROCESSOR_IDENTIFIER",
-                "PROCESSOR_LEVEL",
-                "PROCESSOR_REVISION",
-                "NUMBER_OF_PROCESSORS",
-                "FrameworkVersion",
-                "FrameworkVersion32",
-            };
-            foreach (var @var in vars)
-            {
-                Console.WriteLine("\t{0}: {1}", @var, Environment.GetEnvironmentVariable(@var));
-            }
-            Console.WriteLine();
-            Console.WriteLine("========= Compiled as ===========");
-            Console.WriteLine("\tConfiguration: {0}", configuration);
-            Console.WriteLine("\tPlatform: {0}", platform);
-
-            Console.WriteLine("================================");
-            Console.WriteLine();
+            SourceInclude.RuntimeConfiguration.PrintRunConfig(Console.Out);
         }
     }
 }
