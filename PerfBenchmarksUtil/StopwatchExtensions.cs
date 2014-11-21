@@ -9,8 +9,10 @@
         /// </summary>
         public static long OpsPerSecond(this Stopwatch sw, int iterations)
         {
-            // Nanosecond precision
-            var opsPerSecondNano = ((long)iterations * (long)1000L * (long)1000L * (long)1000L) / sw.ElapsedTicks;
+            // Ticks are not nanoseconds.
+            var tickFrequency = Stopwatch.Frequency;
+            var ticks = sw.ElapsedTicks;
+            var opsPerSecondNano = ((long)iterations * (long)tickFrequency) / ticks;
             return opsPerSecondNano;
         }
     }
