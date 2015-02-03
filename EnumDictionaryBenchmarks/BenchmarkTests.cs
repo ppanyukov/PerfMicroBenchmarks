@@ -77,6 +77,12 @@
             Console.WriteLine("Iterations: {0:N} {1}", iterations, label);
 
             {
+                var name = "EmptyMethodCall";
+                var sw = this.EmptyMethodCall(iterations);
+                Console.WriteLine("\t{0}: {1} {2}", name, sw.Elapsed, OpsPerSecond(iterations, sw));
+            }
+
+            {
                 var name = "LoopGetValueArray";
                 var sw = this.LoopGetValueArray(iterations);
                 Console.WriteLine("\t{0}: {1} {2}", name, sw.Elapsed, OpsPerSecond(iterations, sw));
@@ -115,6 +121,17 @@
         public static string OpsPerSecond(int iterations, Stopwatch sw)
         {
             return string.Format("({0:N0}) ops/sec", sw.OpsPerSecond(iterations));
+        }
+
+        private Stopwatch EmptyMethodCall(int iterations)
+        {
+            var sw = new Stopwatch();
+
+            sw.Start();
+
+            sw.Stop();
+
+            return sw;
         }
 
         private Stopwatch LoopGetValueArray(int iterations)
