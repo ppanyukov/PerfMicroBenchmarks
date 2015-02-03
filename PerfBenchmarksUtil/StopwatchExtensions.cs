@@ -5,15 +5,11 @@
     public static class StopwatchExtensions
     {
         /// <summary>
-        /// Calculate ops per second as a formatted string.
+        /// Calculate ops per second as a number.
         /// </summary>
-        public static long OpsPerSecond(this Stopwatch sw, int iterations)
+        public static double OpsPerSecond(this Stopwatch sw, int iterations)
         {
-            // Ticks are not nanoseconds.
-            var tickFrequency = Stopwatch.Frequency;
-            var ticks = sw.ElapsedTicks;
-            var opsPerSecondNano = ((long)iterations * (long)tickFrequency) / ticks;
-            return opsPerSecondNano;
+            return sw.Elapsed.Ticks == 0 ? 0 : iterations / sw.Elapsed.TotalSeconds;
         }
     }
 }
