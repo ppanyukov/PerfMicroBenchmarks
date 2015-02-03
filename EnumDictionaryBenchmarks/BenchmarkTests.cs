@@ -11,7 +11,20 @@
     [TestFixture]
     public sealed class BenchmarkTests
     {
-        private const string ValueToUse = "some string value";
+        /// <summary>
+        /// A string value we will use in our tests, non-constant, generated using DateTime.Now
+        /// so that compiler cannot predict the string lengths and other things to optimise
+        /// away our benchmarks and loops.
+        /// </summary>
+        private static string ValueToUse()
+        {
+            return DateTime.Now.ToString();
+        }
+
+        /// <summary>
+        /// We will use this spoiler to increment values to these during our tests to spoof the compiler and prevent any kind of optimisations.
+        /// </summary>
+        private static long spoiler;
 
         [Test]
         public void GetValueTests()
@@ -34,38 +47,38 @@
 
         private string[] StorageArray = new[]
         {
-            ValueToUse,
-            ValueToUse,
-            ValueToUse,
-            ValueToUse,
-            ValueToUse,
+            ValueToUse(),
+            ValueToUse(),
+            ValueToUse(),
+            ValueToUse(),
+            ValueToUse(),
         };
 
         private readonly Dictionary<EnumNumbers, string> StorageMapEnum = new Dictionary<EnumNumbers, string>()
         {
-            {EnumNumbers.Zero, ValueToUse},
-            {EnumNumbers.One, ValueToUse},
-            {EnumNumbers.Two, ValueToUse},
-            {EnumNumbers.Three, ValueToUse},
-            {EnumNumbers.Four, ValueToUse},
+            {EnumNumbers.Zero, ValueToUse()},
+            {EnumNumbers.One, ValueToUse()},
+            {EnumNumbers.Two, ValueToUse()},
+            {EnumNumbers.Three, ValueToUse()},
+            {EnumNumbers.Four, ValueToUse()},
         };
 
         private readonly Dictionary<string, string> StorageMapString = new Dictionary<string, string>()
         {
-            {"0", ValueToUse},
-            {"1", ValueToUse},
-            {"2", ValueToUse},
-            {"3", ValueToUse},
-            {"4", ValueToUse},
+            {"0", ValueToUse()},
+            {"1", ValueToUse()},
+            {"2", ValueToUse()},
+            {"3", ValueToUse()},
+            {"4", ValueToUse()},
         };
 
         private readonly Dictionary<byte, string> StorageMapByte = new Dictionary<byte, string>()
         {
-            {0, ValueToUse},
-            {1, ValueToUse},
-            {2, ValueToUse},
-            {3, ValueToUse},
-            {4, ValueToUse},
+            {0, ValueToUse()},
+            {1, ValueToUse()},
+            {2, ValueToUse()},
+            {3, ValueToUse()},
+            {4, ValueToUse()},
         };
 
 
@@ -74,7 +87,7 @@
         /// </summary>
         private void GetValueTests(int iterations, string label="")
         {
-            Console.WriteLine("Iterations: {0:N} {1}", iterations, label);
+            Console.WriteLine("Iterations: {0:N0} {1}", iterations, label);
 
             {
                 var name = "EmptyMethodCall";
@@ -113,6 +126,7 @@
             }
 
             Console.WriteLine();
+            Console.WriteLine("Spoiler values: {0:N0}", spoiler);
         }
 
         /// <summary>
@@ -146,6 +160,9 @@
                 var v2 = this.StorageArray[(int)EnumNumbers.Two];
                 var v3 = this.StorageArray[(int)EnumNumbers.Three];
                 var v4 = this.StorageArray[(int)EnumNumbers.Four];
+
+                // Compiler spoiler
+                spoiler = spoiler + v0.Length + v1.Length + v2.Length + v3.Length + v4.Length;
             }
             sw.Stop();
 
@@ -164,6 +181,9 @@
                 var v2 = this.GetValueFromArray((int)EnumNumbers.Two);
                 var v3 = this.GetValueFromArray((int)EnumNumbers.Three);
                 var v4 = this.GetValueFromArray((int)EnumNumbers.Four);
+
+                // Compiler spoiler
+                spoiler = spoiler + v0.Length + v1.Length + v2.Length + v3.Length + v4.Length;
             }
             sw.Stop();
 
@@ -187,6 +207,9 @@
                 var v2 = this.StorageMapEnum[EnumNumbers.Two];
                 var v3 = this.StorageMapEnum[EnumNumbers.Three];
                 var v4 = this.StorageMapEnum[EnumNumbers.Four];
+
+                // Compiler spoiler
+                spoiler = spoiler + v0.Length + v1.Length + v2.Length + v3.Length + v4.Length;
             }
             sw.Stop();
 
@@ -205,6 +228,9 @@
                 var v2 = this.StorageMapString["2"];
                 var v3 = this.StorageMapString["3"];
                 var v4 = this.StorageMapString["4"];
+
+                // Compiler spoiler
+                spoiler = spoiler + v0.Length + v1.Length + v2.Length + v3.Length + v4.Length;
             }
             sw.Stop();
 
@@ -223,6 +249,9 @@
                 var v2 = this.StorageMapByte[(byte)EnumNumbers.Two];
                 var v3 = this.StorageMapByte[(byte)EnumNumbers.Three];
                 var v4 = this.StorageMapByte[(byte)EnumNumbers.Four];
+
+                // Compiler spoiler
+                spoiler = spoiler + v0.Length + v1.Length + v2.Length + v3.Length + v4.Length;
             }
             sw.Stop();
 
