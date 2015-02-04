@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Runtime.CompilerServices;
 
     using NUnit.Framework;
 
@@ -138,12 +139,16 @@
             return string.Format("({0:N0}) ops/sec", sw.OpsPerSecond(iterations));
         }
 
+        [System.Runtime.CompilerServices.MethodImpl(MethodImplOptions.NoInlining)]
         private Stopwatch EmptyMethodCall(int iterations)
         {
             var sw = new Stopwatch();
 
             sw.Start();
-
+            for (int i = 0; i < iterations; i++)
+            {
+                
+            }
             sw.Stop();
 
             return sw;
@@ -191,6 +196,7 @@
             return sw;
         }
 
+         [System.Runtime.CompilerServices.MethodImpl(MethodImplOptions.NoInlining)]
         private string GetValueFromArray(int index)
         {
             return this.StorageArray[index];
