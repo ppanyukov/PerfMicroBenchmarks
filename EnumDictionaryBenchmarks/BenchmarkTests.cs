@@ -90,7 +90,7 @@
             Console.WriteLine("Iterations: {0:N0} {1}", iterations, label);
 
             {
-                var name = "EmptyMethodCall";
+                var name = "EmptyMethodCall (ignore)";
                 var sw = this.EmptyMethodCall(iterations);
                 Console.WriteLine("\t{0}: {1} {2}", name, sw.Elapsed, OpsPerSecond(iterations, sw));
             }
@@ -127,6 +127,7 @@
 
             Console.WriteLine();
             Console.WriteLine("Spoiler values: {0:N0}", spoiler);
+            Console.WriteLine();
         }
 
         /// <summary>
