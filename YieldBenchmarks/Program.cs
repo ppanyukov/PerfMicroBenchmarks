@@ -33,6 +33,7 @@
             log.WriteLine("==== Run: {0} over {1:N0} iterations", name, iterations);
 
             {
+                rand = new Random(0);
                 var sw = new Stopwatch();
                 sw.Start();
                 var spoiler = LoopArrayFixed(iterations);
@@ -43,6 +44,7 @@
             }
 
             {
+                rand = new Random(0);
                 var sw = new Stopwatch();
                 sw.Start();
                 var spoiler = LoopArrayFixed_ForLoop(iterations);
@@ -53,11 +55,12 @@
             }
 
             {
-                log.Write("LoopYieldFixed, {0:N0} iterations: ", iterations);
+                rand = new Random(0);
                 var sw = new Stopwatch();
                 sw.Start();
                 var spoiler = LoopYieldFixed(iterations);
                 sw.Stop();
+                log.Write("LoopYieldFixed, {0:N0} iterations: ", iterations);
                 log.WriteLine("{0} ({1:N0} ops/sec)", sw.Elapsed, sw.OpsPerSecond(iterations));
                 log.WriteLine("Spoiler values: {0:N0}", spoiler);
             }
