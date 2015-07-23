@@ -3,6 +3,10 @@
 (These results are from the more correct benchmark which includes compiler/optimizer spoiler.
 Looks more real now.)
 
+
+For comparison how things run on Azure VMs vs local machine, see http://ppanyukov.github.io/2015/07/23/performance-of-azure-vms.html
+
+
 ## Results
 
 
