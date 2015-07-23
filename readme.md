@@ -36,3 +36,11 @@ Some detail:
 
 <br/>
 
+- **SleazePower**
+
+	Exercise in Power and Control. Show the compiler who's the boss.
+
+
+	For fun and for science :)
+
+
