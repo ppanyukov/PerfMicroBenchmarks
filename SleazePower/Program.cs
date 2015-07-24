@@ -113,6 +113,17 @@ namespace SleazePower
                 Console.WriteLine(string.Format("Value of string after showing who's the boss here: {0}.", wellHelloThere));
             }
 
+            // Is someone over-protective of their code?
+            // Did someone read too many blogs on the benefits of "encapsulation"?
+            // Have they thought to hide cool useful fields using "private" keyword?
+            // Fools! It's Encapsulation-Boomcapsulation time! Turn their private fields into public!
+            {
+                FooClassWithPrivateFields foo = new FooClassWithPrivateFields(fieldA: "private field A", fieldB: "private field B");
+                BarClassWithEverythingPublic bar = I.Donʼt.Do.This.Often.But.When.I.Do.I.Always.Cast.From<FooClassWithPrivateFields>.To<BarClassWithEverythingPublic>.ForScience(foo);
+                Console.WriteLine("Private field A? Not anymore!: {0}", bar.fieldAPublic);
+                Console.WriteLine("Private field B? Not anymore!: {0}", bar.fieldBPublic);
+            }
+
             // And many, many other fun application. :)
         }
     }
@@ -184,5 +195,23 @@ namespace SleazePower
     public class BarClassWithIntOrLong
     {
         public int fieldA;
+    }
+
+    public class FooClassWithPrivateFields
+    {
+        private string fieldA;
+        private string fieldB;
+
+        public FooClassWithPrivateFields(string fieldA, string fieldB)
+        {
+            this.fieldA = fieldA;
+            this.fieldB = fieldB;
+        }
+    }
+
+    public abstract class BarClassWithEverythingPublic
+    {
+        public string fieldAPublic;
+        public string fieldBPublic;
     }
 }
