@@ -135,6 +135,10 @@ namespace SleazePower
                     new FooClass{fieldA = "foo.FieldA 2", fieldB = "foo.FieldB 2"}
                 };
 
+                // This will not compile.
+                //var barThings = (BarClass[])fooThings;
+
+                // But we don't care!
                 var barThings = I.Donʼt.Do.This.Often.But.When.I.Do.I.Always.Cast.From<FooClass[]>.To<BarClass[]>.ForScience(fooThings);
                 foreach (var bar in barThings)
                 {
@@ -154,6 +158,10 @@ namespace SleazePower
 
                 var fooThingsEnumerable = fooArray.AsEnumerable();
 
+                // This will throw InvalidCastException.
+                //var barThings = (IEnumerable<BarClass>)fooThingsEnumerable;
+
+                // But we don't care!
                 var barThings = I.Donʼt.Do.This.Often.But.When.I.Do.I.Always.Cast.From<IEnumerable<FooClass>>.To<IEnumerable<BarClass>>.ForScience(fooThingsEnumerable);
                 foreach (var bar in barThings)
                 {
@@ -166,6 +174,11 @@ namespace SleazePower
             // Enhanced polymorphism without class hierarchy - Turn dogs into cats!
             {
                 var cat = new Cat();
+
+                // This will not compile.
+                //var dog = (Dog)cat;
+
+                // But we don't care!
                 var dog = I.Donʼt.Do.This.Often.But.When.I.Do.I.Always.Cast.From<Cat>.To<Dog>.ForScience(cat);
                 Console.WriteLine("Cat says: {0}", cat.SaySomething());
                 Console.WriteLine("Cat became dog: {0}", dog.SaySomething());
