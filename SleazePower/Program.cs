@@ -3,6 +3,8 @@
 namespace SleazePower
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     class Program
     {
@@ -124,6 +126,51 @@ namespace SleazePower
                 Console.WriteLine("Private field B? Not anymore!: {0}", bar.fieldBPublic);
             }
 
+
+            // Arrays of T. Turn them into Arrays of Y!
+            {
+                var fooThings = new FooClass[]
+                {
+                    new FooClass{fieldA = "foo.FieldA 1", fieldB = "foo.FieldB 1"},
+                    new FooClass{fieldA = "foo.FieldA 2", fieldB = "foo.FieldB 2"}
+                };
+
+                var barThings = I.Donʼt.Do.This.Often.But.When.I.Do.I.Always.Cast.From<FooClass[]>.To<BarClass[]>.ForScience(fooThings);
+                foreach (var bar in barThings)
+                {
+                    Console.WriteLine("Array. bar.fieldXXX: {0}", bar.fieldXXX);
+                    Console.WriteLine("Array. bar.fieldYYY: {0}", bar.fieldYYY);
+                }
+            }
+
+
+            // Linq and enumerables -- no problem!
+            {
+                var fooArray = new FooClass[]
+                {
+                    new FooClass{fieldA = "foo.FieldA 1", fieldB = "foo.FieldB 1"},
+                    new FooClass{fieldA = "foo.FieldA 2", fieldB = "foo.FieldB 2"}
+                };
+
+                var fooThingsEnumerable = fooArray.AsEnumerable();
+
+                var barThings = I.Donʼt.Do.This.Often.But.When.I.Do.I.Always.Cast.From<IEnumerable<FooClass>>.To<IEnumerable<BarClass>>.ForScience(fooThingsEnumerable);
+                foreach (var bar in barThings)
+                {
+                    Console.WriteLine("Enumerable. bar.fieldXXX: {0}", bar.fieldXXX);
+                    Console.WriteLine("Enumerable. bar.fieldYYY: {0}", bar.fieldYYY);
+                }
+            }
+
+
+            // Enhanced polymorphism without class hierarchy - Turn dogs into cats!
+            {
+                var cat = new Cat();
+                var dog = I.Donʼt.Do.This.Often.But.When.I.Do.I.Always.Cast.From<Cat>.To<Dog>.ForScience(cat);
+                Console.WriteLine("Cat says: {0}", cat.SaySomething());
+                Console.WriteLine("Cat became dog: {0}", dog.SaySomething());
+            }
+
             // And many, many other fun application. :)
         }
     }
@@ -213,5 +260,21 @@ namespace SleazePower
     {
         public string fieldAPublic;
         public string fieldBPublic;
+    }
+
+    public class Cat
+    {
+        public string SaySomething()
+        {
+            return "Meaew meawe";
+        }
+    }
+
+    public class Dog
+    {
+        public string SaySomething()
+        {
+            return "Woof woof!";
+        }
     }
 }
